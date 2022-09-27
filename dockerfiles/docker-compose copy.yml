@@ -1,0 +1,22 @@
+version: "3"
+services:
+  redis:
+    image: "redis:alpine"
+  cliapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.cliapp
+    image: cliappimg
+    volumes:
+      - tmp:/opt/chimera/data
+  webapp:
+     build:
+      context: .
+      dockerfile: Dockerfile.webapp
+     image: webappimg
+     volumes:
+      - tmp:/opt/chimera/data
+     ports:
+      - "8080:80"
+volumes:
+  tmp:
